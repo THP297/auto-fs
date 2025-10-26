@@ -1,0 +1,316 @@
+// Load jQuery and proceed with callback
+function loadJQuery(callback) {
+    var script = document.createElement('script');
+    script.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js";
+    script.type = 'text/javascript';
+    script.onload = callback;
+    document.head.appendChild(script);
+}
+
+// Simulate typing into an input field
+function simulateTyping(value, selector, index, callback) {
+    var input = $(selector).eq(index)[0];
+    var index = 0;
+
+    function typeCharacter() {
+        if (index < value.length) {
+            var char = value[index];
+            var eventKeydown = new KeyboardEvent('keydown', { key: char });
+            var eventKeypress = new KeyboardEvent('keypress', { key: char });
+            var eventKeyup = new KeyboardEvent('keyup', { key: char });
+
+            input.dispatchEvent(eventKeydown);
+            input.dispatchEvent(eventKeypress);
+            input.value += char;
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.dispatchEvent(eventKeyup);
+            
+            index++;
+            setTimeout(typeCharacter, 100); // Simulate typing speed
+        } else if (callback) {
+            setTimeout(callback, 500); // Wait briefly before proceeding
+        }
+    }
+
+    typeCharacter();
+}
+
+// Click a checkbox input
+function clickCheckbox(selector, callback) {
+    var checkbox = $(selector).first();
+
+    if (checkbox.length > 0) {
+        checkbox.click(); // Simulate the click event
+        if (callback) {
+            setTimeout(callback, 500); // Wait briefly before proceeding
+        }
+    } else {
+        console.log("Checkbox not found");
+    }
+}
+
+// Click a button using a selector
+function clickCapNhatButton(selector, callback) {
+    var button = $(selector).first();
+
+    if (button.length > 0) {
+        button.click(); // Simulate the click event
+        if (callback) {
+            setTimeout(callback, 500); // Wait briefly before proceeding
+        }
+    } else {
+        console.log("Button not found");
+    }
+}
+
+// Click a button and wait for next step
+function clickButtonTimeSlot(selector, callback) {
+    var button = $(selector).first();
+
+    if (button.length > 0) {
+        button.click(); // Simulate the click event
+        if (callback) {
+            setTimeout(callback, 500); // Wait briefly before proceeding
+        }
+    } else {
+        console.log("Button not found");
+    }
+}
+
+// Click the first date cell with "slots-count"
+function clickFirstDateWithSlots(selector, callback) {
+    setTimeout(function() {
+        var dateCell = $(selector).find('p.slots-count').first().closest(selector);
+
+        if (dateCell.length > 0) {
+            dateCell.click(); // Simulate the click event
+            if (callback) {
+                setTimeout(callback, 500); // Wait briefly before proceeding
+            }
+        } else {
+            console.log("Date cell with slots-count not found");
+        }
+    }, 2000); // 2000 milliseconds = 2 seconds
+}
+
+// Click the first radio button input in the table
+function clickFirstRadio(selector, callback) {
+    setTimeout(() => {
+        var radioInput = $(selector).find('input[type="radio"]').first();
+
+        if (radioInput.length > 0) {
+            radioInput.click(); // Simulate the click event
+            if (callback) {
+                setTimeout(callback, 500); // Wait briefly before proceeding
+            }
+        } else {
+            console.log("Radio input not found");
+        }
+    }, 1000);
+}
+
+// Click the confirm button in the footer
+function clickFooterConfirmButton(selector, callback) {
+    setTimeout(() => {
+        var footerConfirmButton = $(selector).first();
+
+        if (footerConfirmButton.length > 0) {
+            footerConfirmButton.click(); // Simulate the click event
+            if (callback) {
+                setTimeout(callback, 500); // Wait briefly before proceeding
+            }
+        } else {
+            console.log("Footer confirm button not found");
+        }
+    }, 1000);
+}
+
+// Click the button with text "Bật"
+function clickEnableButton(callback) {
+    setTimeout(() => {
+        var buttons = document.querySelectorAll('button.eds-button.eds-button--normal');
+        var enableButton = Array.from(buttons).find(button => button.textContent.trim() === "Bật");
+
+        if (enableButton) {
+            if (enableButton.offsetParent !== null) { // Check if element is visible
+                enableButton.click(); // Simulate the click event
+                if (callback) {
+                    setTimeout(callback, 500); // Wait briefly before proceeding
+                }
+            } else {
+                console.log("Enable button is not visible or clickable");
+            }
+        } else {
+            console.log("Enable button not found");
+        }
+    }, 1000);
+}
+
+// Click the "Xác nhận" button
+function clickXacNhanButton(callback) {
+    setTimeout(() => {
+        // Exact match on the span's text
+        const xacNhanButton = $('button.eds-button.eds-button--primary.eds-button--normal').filter(function () {
+          return $(this).children('span').first().text().trim() === 'Xác nhận';
+        });
+
+        if (xacNhanButton) {
+            if (xacNhanButton.offsetParent !== null) { // Check if element is visible
+                xacNhanButton.click(); // Simulate the click event
+                if (callback) {
+                    setTimeout(callback, 500); // Wait briefly before proceeding
+                }
+            } else {
+                console.log("Xác nhận button is not visible or clickable");
+            }
+        } else {
+            console.log("Xác nhận button not found");
+        }
+    }, 3000);
+}
+
+// Click the "Quay lại trang Danh sách (1s)" button
+function clickQuayLaiTrangDanhSachButton(callback) {
+    setTimeout(() => {
+        var buttons = document.querySelectorAll('button[data-v-2e4150da]');
+        var quayLaiButton = Array.from(buttons).find(button => button.textContent.includes("Quay lại trang Danh sách"));
+
+        if (quayLaiButton) {
+if (quayLaiButton.offsetParent !== null) { // Check if element is visible
+                quayLaiButton.click(); // Simulate the click event
+                if (callback) {
+                    setTimeout(callback, 500); // Wait briefly before proceeding
+                }
+            } else {
+                console.log("Quay lại trang Danh sách button is not visible or clickable");
+            }
+        } else {
+            console.log("Quay lại trang Danh sách button not found");
+        }
+    }, 1000);
+}
+
+
+// Load jQuery and proceed with callback
+loadJQuery(function() {
+    // Execute the series of actions
+    executeActions();
+});
+
+function executeActions() {
+    // Step 0: Simulate typing % discount
+    simulateTyping(discountNumber, '.eds-input__input', 0, function() {
+        // Step 1: Simulate typing
+        simulateTyping(numberProductDiscount, '.eds-input__input', 1, function() {
+            // Step 2: Click checkbox
+            clickCheckbox('.eds-checkbox__input', function() {
+                // Step 3: Click "Cập nhật được chọn" button
+                clickCapNhatButton('.action-button.eds-button.eds-button--normal', function() {
+                    // Step 4: Click time slot button
+                    clickButtonTimeSlot('.eds-button.eds-button--primary.eds-button--normal.eds-button--outline.time-slot-btn', function() {
+                        // Step 5: Click first date cell with slots
+                        clickFirstDateWithSlots('.eds-date-table__cell', function() {
+                            // Step 6: Click first radio button in table
+                            clickFirstRadio('.eds-table__body', function() {
+                                // Step 7: Click confirm button in footer
+                                clickFooterConfirmButton('.footer-action .confirm-btn', function() {
+                                    // Step 8: Click "Bật" button
+                                    clickEnableButton(function() {
+                                        // Step 9: Click "Xác nhận" button
+                                        clickXacNhanButton(function() {
+                                            // Step 10: Click "Quay lại trang Danh sách" button
+                                            clickQuayLaiTrangDanhSachButton(function() {
+                                                console.log("Waiting for page to reload...");
+                                                // Step 11: Wait for the table to update and then click the first "Sao chép" button
+                                                waitForTableUpdate(function() {
+                                                    clickFirstSaoChepButton();
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+}
+
+function waitForTableUpdate(callback) {
+    var checkExist = setInterval(function() {
+        var targetNode = document.querySelector('tbody[data-v-06e73db8]');
+        if (targetNode) {
+clearInterval(checkExist);
+
+            // Options for the observer (which mutations to observe)
+            var config = { childList: true, subtree: true };
+
+            // Callback function to execute when mutations are observed
+            var observerCallback = function(mutationsList, observer) {
+                for (var mutation of mutationsList) {
+                    if (mutation.type === 'childList') {
+                        console.log('Table updated');
+                        // Disconnect the observer once the table is updated
+                        observer.disconnect();
+                        // Execute the callback function
+                        if (callback) callback();
+                        break;
+                    }
+                }
+            };
+
+            // Create an observer instance linked to the callback function
+            var observer = new MutationObserver(observerCallback);
+
+            // Start observing the target node for configured mutations
+            observer.observe(targetNode, config);
+
+            // Fallback in case MutationObserver doesn't trigger
+            setTimeout(function() {
+                observer.disconnect();
+                if (callback) callback();
+            }, 5000); // Adjust timeout as needed
+        }
+    }, 100); // Adjust interval as needed
+}
+
+function clickFirstSaoChepButton() {
+    var buttons = Array.from(document.querySelectorAll('button'));
+    var saoChepButton = buttons.find(button => button.textContent.includes('Sao chép'));
+    if (saoChepButton) {
+        // Open the new tab and keep a reference to it
+        var newTab = window.open('', '_blank');
+        
+        var event = new MouseEvent('click', {
+            view: window,
+            bubbles: true,
+            cancelable: true
+        });
+
+        // Modify the event to open the link in the new tab
+        saoChepButton.addEventListener('click', function() {
+            setTimeout(function() {
+                if (newTab) {
+                    newTab.location.href = saoChepButton.href;
+                    newTab.onload = function() {
+                        // Run your function in the new tab
+                        newTab.runFunctionInNewTab();
+                    };
+                }
+            }, 100);
+        });
+
+        saoChepButton.dispatchEvent(event);
+        console.log("Clicked the first 'Sao chép' button");
+    } else {
+        console.log("No 'Sao chép' button found");
+    }
+}
+
+// Function to run in the new tab
+function runFunctionInNewTab() {
+    console.log("Running function in the new tab");
+    // Your code here to interact with the new tab
+}
