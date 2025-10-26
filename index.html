@@ -1,4 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discount Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            font-weight: 300;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 1.1em;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .result-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            min-height: 100px;
+        }
+
+        .result-title {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .result-content {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1.1em;
+        }
+
+        .highlight {
+            color: #667eea;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Discount Calculator</h1>
+         
+        <form id="discountForm">
+            <div class="form-group">
+                <label for="discount">Discount Percentage (%):</label>
+                <input type="number" id="discount" name="discount" min="0" max="100" step="0.01" placeholder="Enter discount percentage" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="number">Number:</label>
+                <input type="number" id="number" name="number" min="0" step="0.01" placeholder="Enter a number" required>
+            </div>
+            
+            <button type="submit" class="submit-btn">Calculate</button>
+        </form>
+        
+        <div class="result-section">
+            <div class="result-title">Result:</div>
+            <div class="result-content" id="resultContent">
+                Enter values above and click Calculate to see the result.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Store the js.txt content
+        const jsContent = `
 // Load jQuery and proceed with callback
 function loadJQuery(callback) {
     var script = document.createElement('script');
@@ -203,9 +350,9 @@ loadJQuery(function() {
 
 function executeActions() {
     // Step 0: Simulate typing % discount
-    simulateTyping("10", '.eds-input__input', 0, function() {
+    simulateTyping(discountNumber, '.eds-input__input', 0, function() {
         // Step 1: Simulate typing
-        simulateTyping("100", '.eds-input__input', 1, function() {
+        simulateTyping(numberProductDiscount, '.eds-input__input', 1, function() {
             // Step 2: Click checkbox
             clickCheckbox('.eds-checkbox__input', function() {
                 // Step 3: Click "Cập nhật được chọn" button
@@ -318,5 +465,66 @@ function runFunctionInNewTab() {
     console.log("Running function in the new tab");
     // Your code here to interact with the new tab
 }
-                
-                    
+                `;
+
+        document.getElementById('discountForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get the input values
+            const discount = document.getElementById('discount').value;
+            const number = document.getElementById('number').value;
+            
+            // Log the values to console
+            console.log('User Input:');
+            console.log('Discount Percentage:', discount + '%');
+            console.log('Number:', number);
+            
+            // Replace variables in the js content
+            const modifiedJsContent = jsContent
+                .replace(/discountNumber/g, `"${discount}"`)
+                .replace(/numberProductDiscount/g, `"${number}"`);
+            
+            // Display the modified code in the result section
+            const resultContent = document.getElementById('resultContent');
+            resultContent.innerHTML = `
+                <div class="result-title">Modified JavaScript Code:</div>
+                <div style="position: relative;">
+                    <button id="copyButton" style="position: absolute; top: 10px; right: 10px; background: #667eea; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.3s ease; z-index: 10;" onmouseover="this.style.background='#5a6fd8'" onmouseout="this.style.background='#667eea'">
+                        📋 Copy to Clipboard
+                    </button>
+                    <pre id="codeContent" style="background: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.4; max-height: 400px; overflow-y: auto; border: 1px solid #e1e5e9;">
+${modifiedJsContent}
+                    </pre>
+                </div>
+                <div style="margin-top: 15px; color: #666; font-size: 0.9em;">
+                    <strong>Variables replaced:</strong><br>
+                    • discountNumber → "${discount}"<br>
+                    • numberProductDiscount → "${number}"
+                </div>
+            `;
+            
+            // Add copy functionality
+            document.getElementById('copyButton').addEventListener('click', function() {
+                const codeText = document.getElementById('codeContent').textContent;
+                navigator.clipboard.writeText(codeText).then(function() {
+                    const button = document.getElementById('copyButton');
+                    const originalText = button.textContent;
+                    button.textContent = '✅ Copied!';
+                    button.style.background = '#28a745';
+                    setTimeout(function() {
+                        button.textContent = originalText;
+                        button.style.background = '#667eea';
+                    }, 2000);
+                }).catch(function(err) {
+                    console.error('Failed to copy: ', err);
+                    alert('Failed to copy to clipboard. Please try again.');
+                });
+            });
+            
+            // Also log the modified content
+            console.log('Modified JavaScript Code:');
+            console.log(modifiedJsContent);
+        });
+    </script>
+</body>
+</html>
